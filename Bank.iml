@@ -470,5 +470,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="javafx" level="project" />
+    <orderEntry type="library" name="javafx-swt" level="project" />
   </component>
 </module>
