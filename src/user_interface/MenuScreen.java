@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -27,7 +28,7 @@ public class MenuScreen extends Application {
 
     private VBox pane = new VBox(20);
     private VBox btnPane = new VBox(10);
-    private Label titleLbl = new Label ("WELCOME TO THE DIGITAL BANK");
+    private Label titleLbl = new Label ("- WELCOME TO THE DIGITAL BANK -");
     private Text helloTxt = new Text("Hello, ");
 
     //Login scene
@@ -38,6 +39,7 @@ public class MenuScreen extends Application {
     private ToggleGroup group = new ToggleGroup();
     private RadioButton clientRbtn = new RadioButton("Client");
     private RadioButton employeeRbtn = new RadioButton("Employee");
+    private Text signInTxt = new Text("new customer? Sign in here");
 
     //Client UI - menu screen
     private VBox transferTabPane = new VBox(20);
@@ -80,8 +82,6 @@ public class MenuScreen extends Application {
 
     public MenuScreen(Stage primaryStage) {
 
-        designButtons();
-
         //set login pane (GridPane)
         loginGridPane.add(new Label("Login details: "), 1, 0); // column=1 row=0
         loginGridPane.add(new Label("Username: "), 0, 1);  // column=2 row=0
@@ -117,12 +117,15 @@ public class MenuScreen extends Application {
         //design buttons
         loginBtn.setMinWidth(75);
         transferOkBtn.setMinWidth(75);
+        signInTxt.setFont(Font.font("Verdana", FontWeight.BOLD, 11));
         //loginBtn.setStyle(buttonsStyle);
 
         //design main pane
-        pane.getChildren().addAll(titleLbl, loginGridPane, loginBtn, btnPane);
+        pane.getChildren().addAll(titleLbl, loginGridPane, loginBtn, signInTxt, btnPane);
         pane.setPadding(new Insets(20));
         pane.setAlignment(Pos.CENTER);
+        titleLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
+
 
 
 
@@ -163,23 +166,54 @@ public class MenuScreen extends Application {
         transferOkBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
                 //get properties from UI
-                int transactionID = 1;
-                String type = "1";
-                float amount = 1;
-                Date create_date = new Date();
-                Account destinationAccount = new Account();
+                int transactionID;
+                String type;
+                float amount;
+                Date create_date;
+                Account destinationAccount;
 
-                //TODO
-                Boolean isAssign = true;
+                transferMoneyFromAccount();
+
+
+
 
             }
         });
 
-
-
+        signInTxt.addEventFilter(
+                MouseEvent.MOUSE_PRESSED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        signIn();
+                        System.out.println("PRESSED");
+                    }
+                }
+        );
 }
+
+    private void transferMoneyFromAccount() {
+
+        //TODO implement the OPEN NEW TRANSFER MONEY REQUEST
+
+
+    }
+
+    private void signIn() {
+        pane.getChildren().clear();
+
+        //get properties from UI
+        String ssn;
+        String fullName;
+        String username;
+        String password;
+        String email;
+
+        //TODO implement the SIGN IN
+
+
+    }
 
     private void employeeMenuScreen() {
         pane.getChildren().clear();
@@ -189,15 +223,6 @@ public class MenuScreen extends Application {
     private void clientMenuScreen() {
         pane.getChildren().clear();
         pane.getChildren().add(tabPane);
-    }
-
-    private void designButtons() {
-        for (int i=0; i<10; i++) {
-            //TODO
-            // this.btnMenu[i].setStyle(buttonsStyle);
-            // btnPane.getChildren().addAll(btnMenu[i]);
-        }
-
     }
 
 
