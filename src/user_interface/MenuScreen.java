@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -52,18 +53,28 @@ public class MenuScreen extends Application {
 
     //Client UI : transfer tab
     private Button transferOkBtn = new Button("OK");
-    /*private int transactionID;
-    private String type;
-    private float amount;
-    private Date create_date;
-    private Account destinationAccount;*/
+    private GridPane transferDetailsGridPane = new GridPane();
+    private TextField tfMoneyAmount = new TextField();
+    private TextField tfDestinationBankID = new TextField();
+    private TextField tfDestinationAccountNumber = new TextField();
+   // private Text txtTransactionID = new Text();
 
-    //Client UI : transfer tab
+    //Client UI : view account status tab
+    private GridPane accountDetailsGridPane = new GridPane();
+
+    //Client UI : open request status tab
+    private GridPane requestDetailsGridPane = new GridPane();
+    private Button sendRequestOkBtn = new Button("SEND");
+    private TextField tfRequestSubject = new TextField();
+    private TextField tfRequestDescription = new TextField();
+
 
 
     //Employee UI - menu screen
     private VBox employeeUIPane = new VBox(20);
-
+    private final ScrollPane requestsScrollPane = new ScrollPane();
+    private TextField tfRequestNumber = new TextField("enter request number...    ");
+    private Button updateRequestOkBtn = new Button("OK");
 
 
     private String buttonsStyle = "-fx-background-color: \n" +
@@ -76,9 +87,6 @@ public class MenuScreen extends Application {
             "    -fx-padding: 12 30 12 30;\n" +
             "    -fx-text-fill: white;\n" +
             "    -fx-font-size: 12px;";
-
-    //declare buttons
-    private Button[] btnMenu = new Button[10];
 
     public MenuScreen(Stage primaryStage) {
 
@@ -97,26 +105,69 @@ public class MenuScreen extends Application {
 
         //set client UI - tabs pane
         tabPane.getTabs().addAll(tab1, tab2, tab3);
-        transferTabPane.setMinSize(550, 550);
-        transferTabPane.setPadding(new Insets(20));
+        transferTabPane.setMinHeight(550);
+        transferTabPane.setPadding(new Insets(30));
 
         //set client UI - transfer tab
-        transferTabPane.getChildren().addAll(helloTxt, transferOkBtn);
+        transferDetailsGridPane.add(new Label("Transfer details: "), 0, 0); // column=1 row=0
+        //   transferDetailsGridPane.add(new Label("Transaction type: "), 0, 1);    //transacction lbl
+        //   transferDetailsGridPane.add(new Label("Transaction type: "), 1, 1);     //transacction radio button
+        transferDetailsGridPane.add(new Label("Transaction amount: "), 0, 1);     //transacction lbl
+        transferDetailsGridPane.add(tfMoneyAmount, 1, 1);     //transacction amount tf
+        transferDetailsGridPane.add(new Label("Destination bank ID: "), 0, 2);
+        transferDetailsGridPane.add(tfDestinationBankID, 1, 2);
+        transferDetailsGridPane.add(new Label("Destination account number: "), 0, 3);
+        transferDetailsGridPane.add(tfDestinationAccountNumber, 1, 3);
+        transferDetailsGridPane.add(transferOkBtn, 0, 4);
+        transferTabPane.getChildren().addAll(helloTxt,transferDetailsGridPane);
 
+        //set client UI - view account tab
+        accountDetailsGridPane.add(new Label("Bank ID: "), 0, 0);
+        accountDetailsGridPane.add(new Label("Account number: "), 0, 1);
+        accountDetailsGridPane.add(new Label("Client name: "), 0, 2);
+        accountDetailsGridPane.add(new Label("Client SSN: "), 0, 3);
+        accountDetailsGridPane.add(new Label("Balance: "), 0, 4);
+        accountDetailsGridPane.add(new Label("Email: "), 0, 5);
+        viewAccountTabPane.getChildren().addAll(helloTxt,accountDetailsGridPane);
+        viewAccountTabPane.setPadding(new Insets(50));
+
+        //set client UI - open request tab
+        requestDetailsGridPane.add(new Label("Subject: "), 0, 0);
+        requestDetailsGridPane.add(tfRequestSubject, 1, 0);
+        requestDetailsGridPane.add(new Label("Account number: "), 0, 1);
+        requestDetailsGridPane.add(tfRequestDescription, 1, 1);
+        requestDetailsGridPane.add(sendRequestOkBtn, 0, 2);
+        openRequestTabPane.getChildren().addAll(helloTxt,requestDetailsGridPane);
+        tfRequestSubject.setMinWidth(150);
+        tfRequestDescription.setMinWidth(150);
+        openRequestTabPane.setPadding(new Insets(25));
 
         //set employee UI - employeeUIPane
-        employeeUIPane.getChildren().add(helloTxt);
+        employeeUIPane.getChildren().addAll(helloTxt, new Label("List of customers requests: "), requestsScrollPane,
+                new HBox(new Label("Update request status:            "), tfRequestNumber), updateRequestOkBtn);
         helloTxt.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        requestsScrollPane.setPrefSize(300, 300);
 
-        //design GridPane
+        //design GridPanes
         loginGridPane.setAlignment(Pos.CENTER);
         loginGridPane.setHgap(20); //horizontal gap in pixels => that's what you are asking for
         loginGridPane.setVgap(30); //vertical gap in pixels
         loginGridPane.setPadding(new Insets(15, 15, 15, 15)); //margins around the whole grid(top/right/bottom/left)
+        transferDetailsGridPane.setAlignment(Pos.CENTER);
+        transferDetailsGridPane.setHgap(35);
+        transferDetailsGridPane.setVgap(30);
+        accountDetailsGridPane.setHgap(35);
+        accountDetailsGridPane.setVgap(30);
+        requestDetailsGridPane.setHgap(35);
+        requestDetailsGridPane.setVgap(30);
+        requestDetailsGridPane.setPadding(new Insets(15, 15, 15, 15));
+     //   transferDetailsGridPane.setPadding(new Insets(10, 15, 15, 15));
 
         //design buttons
         loginBtn.setMinWidth(75);
         transferOkBtn.setMinWidth(75);
+        updateRequestOkBtn.setMinWidth(75);
+        sendRequestOkBtn.setMinWidth(75);
         signInTxt.setFont(Font.font("Verdana", FontWeight.BOLD, 11));
         //loginBtn.setStyle(buttonsStyle);
 
@@ -125,9 +176,6 @@ public class MenuScreen extends Application {
         pane.setPadding(new Insets(20));
         pane.setAlignment(Pos.CENTER);
         titleLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
-
-
-
 
         //set scene
         Scene mainScene = new Scene(pane, 500, 500);
@@ -153,13 +201,20 @@ public class MenuScreen extends Application {
 
                 if(isAssign){
                     if(isClient){
+                        updateAccountStatus();
                         clientMenuScreen();
                     }else{
                         employeeMenuScreen();
                     }
                 }
             }
-    });
+
+            private void updateAccountStatus() {
+
+                //TODO
+                //implement the "view account" tab
+            }
+        });
 
 
 
@@ -167,17 +222,23 @@ public class MenuScreen extends Application {
             @Override
             public void handle(ActionEvent event) {
                 //get properties from UI
-                int transactionID;
-                String type;
                 float amount;
                 Date create_date;
                 Account destinationAccount;
+                int transactionID;
 
                 transferMoneyFromAccount();
+            }
+        });
 
+        updateRequestOkBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                updateRequestStatus(tfRequestNumber);
+            }
 
-
-
+            private void updateRequestStatus(TextField tfRequestNumber) {
+                //TODO
             }
         });
 
@@ -212,7 +273,6 @@ public class MenuScreen extends Application {
 
         //TODO implement the SIGN IN
 
-
     }
 
     private void employeeMenuScreen() {
@@ -224,9 +284,6 @@ public class MenuScreen extends Application {
         pane.getChildren().clear();
         pane.getChildren().add(tabPane);
     }
-
-
-
 
     @Override
     public void start(Stage stage) throws Exception {
