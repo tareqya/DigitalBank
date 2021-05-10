@@ -147,6 +147,25 @@ public class DatabaseManager {
         }
     }
 
+    public BankClient getBankClientByEmail(String email){
+        try{
+            JSONObject bankClients_data = new JSONObject(this.read(BankClientTable));
+            JSONObject requests_data = new JSONObject(this.read(RequestTable));
+            JSONObject accounts_data = new JSONObject(this.read(AccountTable));
+            JSONObject transactions_data = new JSONObject(this.read(TransactionTable));
+
+            JSONArray keys = bankClients_data.names();
+            for(int i = 0 ; i < keys.length(); i++){
+                BankClient bankClient = BankClient.jsonToClient(keys.getString(i), bankClients_data, accounts_data, requests_data, transactions_data);
+                if(bankClient != null && bankClient.getEmail().equals(email))
+                    return bankClient;
+            }
+        }catch (Exception e){
+            return null;
+        }
+        return null;
+    }
+
     public boolean updateBankClient(BankClient bankClient){
         BankClient old_client  = this.getBankClient(bankClient.getSsn());
         if(old_client == null)
@@ -371,5 +390,7 @@ public class DatabaseManager {
 
 //        db.updateAccount(new Account("1", 12345678, "account1", "type", (float)1000));
 
+//        BankClient b = db.getBankClientByEmail("client2@client.com");
+//        System.out.println(b.getFullName());
     }
 }
