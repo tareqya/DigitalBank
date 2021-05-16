@@ -31,7 +31,7 @@ public class MenuScreen extends Application {
     private final VBox pane = new VBox(20);
 
     private final TextField tfUserName = new TextField();
-    private final TextField tfPassword = new TextField();
+    private final PasswordField tfPassword = new PasswordField();
     private final RadioButton clientRbtn = new RadioButton("Client");
 
     private final VBox viewAccountTabPane = new VBox(20);
@@ -206,7 +206,7 @@ public class MenuScreen extends Application {
                 Login();
                 if (isAssign) {
                     if (isClient) {
-                        showClientdetails();
+                        showClientDetails(0);
                         updateAccountStatus();
                         clientMenuScreen();
                     } else {
@@ -307,13 +307,13 @@ public class MenuScreen extends Application {
         pane.getChildren().add(tabPane);
     }
 
-    private void showClientdetails() {
-        bankID.setText(bankID.getText() + " ");
-        accountNumber.setText(accountNumber.getText() + " " + bc.getAccounts().size());
-        client_Name.setText(client_Name.getText() + " " + bc.getFullName());
-        client_ssn.setText(client_ssn.getText() + " " + bc.getSsn());
-        balance.setText(balance.getText() + "");
-        clientemail.setText(clientemail.getText() + " " + bc.getEmail());
+    private void showClientDetails(int index) {
+        bankID.setText(bankID.getText() +" "+bc.getAccounts().get(index).getBankID() + "");
+        accountNumber.setText(accountNumber.getText()+" "+bc.getAccounts().get(index).getAccountNumber()+"");
+        client_Name.setText(client_Name.getText() +" "+ bc.getFullName());
+        client_ssn.setText(client_ssn.getText() +" "+bc.getSsn());
+        balance.setText(balance.getText() +" "+String.format("%.2f", bc.getAccounts().get(index).getBalance()));
+        clientemail.setText(clientemail.getText() +" "+bc.getEmail());
 
     }
 
