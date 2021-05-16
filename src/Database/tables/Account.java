@@ -38,7 +38,7 @@ public class Account {
             account.accountType = accountJson.getString("accountType");
             account.balance = (float)accountJson.getLong("balance");
 
-            JSONArray transactions_id = jsonAccounts.getJSONArray("Transactions");
+            JSONArray transactions_id = accountJson.getJSONArray("Transactions");
             for(int i = 0 ; i < transactions_id.length(); i++){
                 account.addTransaction(Transaction.jsonToTransaction(transactions_id.getInt(i), jsonTransactions));
             }
