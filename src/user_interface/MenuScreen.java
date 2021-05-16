@@ -1,83 +1,81 @@
 package user_interface;
 
+import Database.DatabaseManager;
 import Database.tables.Account;
+import Database.tables.BankClient;
+import Database.tables.Employee;
+import Database.tables.Person;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.time.Clock;
 import java.util.Date;
-import java.util.Vector;
 
 public class MenuScreen extends Application {
 
     int numberOfMenuOptions = 10;
+    private boolean isClient = false;
+    private boolean isEmployee = false;
+    private final VBox pane = new VBox(20);
 
-    private VBox pane = new VBox(20);
-    private VBox btnPane = new VBox(10);
-    private Label titleLbl = new Label ("- WELCOME TO THE DIGITAL BANK -");
-    private Text helloTxt = new Text("Hello, ");
+    private final TextField tfUserName = new TextField();
+    private final TextField tfPassword = new TextField();
+    private final RadioButton clientRbtn = new RadioButton("Client");
 
-    //Login scene
-    private GridPane loginGridPane = new GridPane();
-    private TextField tfUserName = new TextField();
-    private TextField tfPassword = new TextField();
-    private Button loginBtn = new Button("Log in");
-    private ToggleGroup group = new ToggleGroup();
-    private RadioButton clientRbtn = new RadioButton("Client");
-    private RadioButton employeeRbtn = new RadioButton("Employee");
-    private Text signInTxt = new Text("new customer? Sign in here");
-
-    //Client UI - menu screen
-    private VBox transferTabPane = new VBox(20);
-    private VBox viewAccountTabPane = new VBox(20);
-    private VBox openRequestTabPane = new VBox(20);
-    private TabPane tabPane = new TabPane();
-    private Tab tab1 = new Tab("Transfer money", transferTabPane);
-    private Tab tab2 = new Tab("View account status"  , viewAccountTabPane);
-    private Tab tab3 = new Tab("Open request"  , openRequestTabPane);
+    private final VBox viewAccountTabPane = new VBox(20);
+    private final VBox openRequestTabPane = new VBox(20);
+    private final TabPane tabPane = new TabPane();
+    private final Tab tab3 = new Tab("Open request", openRequestTabPane);
 
     //Client UI : transfer tab
-    private Button transferOkBtn = new Button("OK");
-    private GridPane transferDetailsGridPane = new GridPane();
-    private TextField tfMoneyAmount = new TextField();
-    private TextField tfDestinationBankID = new TextField();
-    private TextField tfDestinationAccountNumber = new TextField();
-   // private Text txtTransactionID = new Text();
+    private final Button transferOkBtn = new Button("OK");
+    private final GridPane transferDetailsGridPane = new GridPane();
+    private final TextField tfMoneyAmount = new TextField();
+    private final TextField tfDestinationBankID = new TextField();
+    private final TextField tfDestinationAccountNumber = new TextField();
+    // private Text txtTransactionID = new Text();
 
     //Client UI : view account status tab
-    private GridPane accountDetailsGridPane = new GridPane();
+    private final GridPane accountDetailsGridPane = new GridPane();
 
     //Client UI : open request status tab
-    private GridPane requestDetailsGridPane = new GridPane();
-    private Button sendRequestOkBtn = new Button("SEND");
-    private TextField tfRequestSubject = new TextField();
-    private TextField tfRequestDescription = new TextField();
+    private final GridPane requestDetailsGridPane = new GridPane();
+    private final Button sendRequestOkBtn = new Button("SEND");
+    private final TextField tfRequestSubject = new TextField();
+    private final TextField tfRequestDescription = new TextField();
 
-
+    private Boolean isAssign = false;
 
     //Employee UI - menu screen
-    private VBox employeeUIPane = new VBox(20);
+    private final VBox employeeUIPane = new VBox(20);
     private final ScrollPane requestsScrollPane = new ScrollPane();
-    private TextField tfRequestNumber = new TextField("enter request number...    ");
-    private Button updateRequestOkBtn = new Button("OK");
+    private final TextField tfRequestNumber = new TextField("enter request number...    ");
+    private final Button updateRequestOkBtn = new Button("OK");
+    RadioButton employeeRbtn = new RadioButton("Employee");
+    private BankClient bc;
+    private Employee em;
+    private Person client;
 
-
-    private String buttonsStyle = "-fx-background-color: \n" +
+    private Label bankID = new Label("Bank ID: ");
+    private Label accountNumber = new Label("Account number: ");
+    private Label client_Name = new Label("Client Name: ");
+    private Label client_ssn = new Label("Client SSN: ");
+    private Label balance = new Label("Balance: ");
+    private Label clientemail = new Label("Email: ");
+    private StringBuilder accountClientsnumbers = new StringBuilder();
+    private final String buttonsStyle = "-fx-background-color: \n" +
             "        #000000,\n" +
             "        linear-gradient(#7ebcea, #2f4b8f),\n" +
             "        linear-gradient(#426ab7, #263e75),\n" +
@@ -91,19 +89,27 @@ public class MenuScreen extends Application {
     public MenuScreen(Stage primaryStage) {
 
         //set login pane (GridPane)
+        //Login scene
+        GridPane loginGridPane = new GridPane();
         loginGridPane.add(new Label("Login details: "), 1, 0); // column=1 row=0
-        loginGridPane.add(new Label("Username: "), 0, 1);  // column=2 row=0
+        loginGridPane.add(new Label("Email: "), 0, 1);  // column=2 row=0
         loginGridPane.add(tfUserName, 1, 1);
         loginGridPane.add(new Label("Password: "), 0, 2);
         loginGridPane.add(tfPassword, 1, 2);
         loginGridPane.add(clientRbtn, 0, 3);
+
         loginGridPane.add(employeeRbtn, 1, 3);
 
         //set radio buttons (employee \ client) for sign in
+        ToggleGroup group = new ToggleGroup();
         clientRbtn.setToggleGroup(group);
         employeeRbtn.setToggleGroup(group);
 
         //set client UI - tabs pane
+        //Client UI - menu screen
+        VBox transferTabPane = new VBox(20);
+        Tab tab1 = new Tab("Transfer money", transferTabPane);
+        Tab tab2 = new Tab("View account status", viewAccountTabPane);
         tabPane.getTabs().addAll(tab1, tab2, tab3);
         transferTabPane.setMinHeight(550);
         transferTabPane.setPadding(new Insets(30));
@@ -119,16 +125,19 @@ public class MenuScreen extends Application {
         transferDetailsGridPane.add(new Label("Destination account number: "), 0, 3);
         transferDetailsGridPane.add(tfDestinationAccountNumber, 1, 3);
         transferDetailsGridPane.add(transferOkBtn, 0, 4);
-        transferTabPane.getChildren().addAll(helloTxt,transferDetailsGridPane);
+        Text helloTxt = new Text("Hello, ");
+        transferTabPane.getChildren().addAll(helloTxt, transferDetailsGridPane);
 
         //set client UI - view account tab
-        accountDetailsGridPane.add(new Label("Bank ID: "), 0, 0);
-        accountDetailsGridPane.add(new Label("Account number: "), 0, 1);
-        accountDetailsGridPane.add(new Label("Client name: "), 0, 2);
-        accountDetailsGridPane.add(new Label("Client SSN: "), 0, 3);
-        accountDetailsGridPane.add(new Label("Balance: "), 0, 4);
-        accountDetailsGridPane.add(new Label("Email: "), 0, 5);
-        viewAccountTabPane.getChildren().addAll(helloTxt,accountDetailsGridPane);
+        accountDetailsGridPane.add(bankID, 0, 0);
+        accountDetailsGridPane.add(accountNumber, 0, 1);
+        accountDetailsGridPane.add(client_Name, 0, 2);
+        accountDetailsGridPane.add(client_ssn, 0, 3);
+        accountDetailsGridPane.add(balance, 0, 4);
+        accountDetailsGridPane.add(clientemail, 0, 5);
+
+
+        viewAccountTabPane.getChildren().addAll(helloTxt, accountDetailsGridPane);
         viewAccountTabPane.setPadding(new Insets(50));
 
         //set client UI - open request tab
@@ -137,7 +146,7 @@ public class MenuScreen extends Application {
         requestDetailsGridPane.add(new Label("Account number: "), 0, 1);
         requestDetailsGridPane.add(tfRequestDescription, 1, 1);
         requestDetailsGridPane.add(sendRequestOkBtn, 0, 2);
-        openRequestTabPane.getChildren().addAll(helloTxt,requestDetailsGridPane);
+        openRequestTabPane.getChildren().addAll(helloTxt, requestDetailsGridPane);
         tfRequestSubject.setMinWidth(150);
         tfRequestDescription.setMinWidth(150);
         openRequestTabPane.setPadding(new Insets(25));
@@ -161,17 +170,21 @@ public class MenuScreen extends Application {
         requestDetailsGridPane.setHgap(35);
         requestDetailsGridPane.setVgap(30);
         requestDetailsGridPane.setPadding(new Insets(15, 15, 15, 15));
-     //   transferDetailsGridPane.setPadding(new Insets(10, 15, 15, 15));
+        //   transferDetailsGridPane.setPadding(new Insets(10, 15, 15, 15));
 
         //design buttons
+        Button loginBtn = new Button("Log in");
         loginBtn.setMinWidth(75);
         transferOkBtn.setMinWidth(75);
         updateRequestOkBtn.setMinWidth(75);
         sendRequestOkBtn.setMinWidth(75);
+        Text signInTxt = new Text("new customer? Sign in here");
         signInTxt.setFont(Font.font("Verdana", FontWeight.BOLD, 11));
         //loginBtn.setStyle(buttonsStyle);
 
         //design main pane
+        Label titleLbl = new Label("- WELCOME TO THE DIGITAL BANK -");
+        VBox btnPane = new VBox(10);
         pane.getChildren().addAll(titleLbl, loginGridPane, loginBtn, signInTxt, btnPane);
         pane.setPadding(new Insets(20));
         pane.setAlignment(Pos.CENTER);
@@ -190,20 +203,13 @@ public class MenuScreen extends Application {
         loginBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
-                Boolean isClient = clientRbtn.isSelected();
-                String userName = tfUserName.getText();
-                String password = tfPassword.getText();
-
-                //TODO
-                Boolean isAssign = true;
-
-
-                if(isAssign){
-                    if(isClient){
+                Login();
+                if (isAssign) {
+                    if (isClient) {
+                        showClientdetails();
                         updateAccountStatus();
                         clientMenuScreen();
-                    }else{
+                    } else {
                         employeeMenuScreen();
                     }
                 }
@@ -215,7 +221,6 @@ public class MenuScreen extends Application {
                 //implement the "view account" tab
             }
         });
-
 
 
         transferOkBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -247,12 +252,12 @@ public class MenuScreen extends Application {
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        signIn();
+                        Login();
                         System.out.println("PRESSED");
                     }
                 }
         );
-}
+    }
 
     private void transferMoneyFromAccount() {
 
@@ -261,17 +266,34 @@ public class MenuScreen extends Application {
 
     }
 
-    private void signIn() {
+    private void Login() {
         pane.getChildren().clear();
+        String email = tfUserName.getText();
+        String password = tfPassword.getText();
+        DatabaseManager db = new DatabaseManager();
 
-        //get properties from UI
-        String ssn;
-        String fullName;
-        String username;
-        String password;
-        String email;
+        if (clientRbtn.isSelected()) {
+            bc = db.getBankClientByEmail(email);
+            if (bc != null && bc.getPassword().equals(password)) {
+                isAssign = true;
+                isClient = true;
 
-        //TODO implement the SIGN IN
+            } else
+                isAssign = false;
+
+        } else {
+            if (employeeRbtn.isSelected()) {
+                em = db.getEmployee(email);
+                if (em != null && em.getPassword().equals(password)) {
+                    isAssign = true;
+                    isEmployee = true;
+
+                } else
+                    isAssign = false;
+            }
+
+        }
+
 
     }
 
@@ -285,8 +307,22 @@ public class MenuScreen extends Application {
         pane.getChildren().add(tabPane);
     }
 
+    private void showClientdetails() {
+        bankID.setText(bankID.getText() + " ");
+        accountNumber.setText(accountNumber.getText() + " " + bc.getAccounts().size());
+        client_Name.setText(client_Name.getText() + " " + bc.getFullName());
+        client_ssn.setText(client_ssn.getText() + " " + bc.getSsn());
+        balance.setText(balance.getText() + "");
+        clientemail.setText(clientemail.getText() + " " + bc.getEmail());
+
+    }
+
+
     @Override
     public void start(Stage stage) throws Exception {
 
+
     }
+
+
 }
