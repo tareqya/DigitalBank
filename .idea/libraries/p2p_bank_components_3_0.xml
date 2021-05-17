@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="p2p-bank-components-3.0">
     <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jarFiles/org.json-chargebee-1.0.jar!/" />
       <root url="file://$PROJECT_DIR$/jarFiles/p2p-bank-components-3.0.0" />
     </CLASSES>
     <JAVADOC />

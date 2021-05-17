@@ -1,10 +1,7 @@
 package user_interface;
 
 import Database.DatabaseManager;
-import Database.tables.Account;
-import Database.tables.BankClient;
-import Database.tables.Employee;
-import Database.tables.Person;
+import Database.tables.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,7 +17,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.apache.kafka.common.protocol.types.Field;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class MenuScreen extends Application {
@@ -143,7 +142,7 @@ public class MenuScreen extends Application {
         //set client UI - open request tab
         requestDetailsGridPane.add(new Label("Subject: "), 0, 0);
         requestDetailsGridPane.add(tfRequestSubject, 1, 0);
-        requestDetailsGridPane.add(new Label("Account number: "), 0, 1);
+        requestDetailsGridPane.add(new Label("Description: "), 0, 1);
         requestDetailsGridPane.add(tfRequestDescription, 1, 1);
         requestDetailsGridPane.add(sendRequestOkBtn, 0, 2);
         openRequestTabPane.getChildren().addAll(helloTxt, requestDetailsGridPane);
@@ -210,6 +209,7 @@ public class MenuScreen extends Application {
                         updateAccountStatus();
                         clientMenuScreen();
                     } else {
+
                         employeeMenuScreen();
                     }
                 }
@@ -219,6 +219,7 @@ public class MenuScreen extends Application {
 
                 //TODO
                 //implement the "view account" tab
+
             }
         });
 
@@ -235,7 +236,14 @@ public class MenuScreen extends Application {
                 transferMoneyFromAccount();
             }
         });
+        sendRequestOkBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+               // String description=tfRequestDescription.getText();
 
+                openClientRequest();
+            }
+        });
         updateRequestOkBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -245,6 +253,12 @@ public class MenuScreen extends Application {
             private void updateRequestStatus(TextField tfRequestNumber) {
                 //TODO
             }
+        });
+        transferOkBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {transferMoneyFromAccount();}
+
+
         });
 
         signInTxt.addEventFilter(
@@ -259,9 +273,35 @@ public class MenuScreen extends Application {
         );
     }
 
-    private void transferMoneyFromAccount() {
+    private void openClientRequest( ) {
+        String snn=bc.getSsn();
+        String description=tfRequestDescription.getText();
+        String subject=tfRequestSubject.getText();
+        Request request=new Request(bc.getRequests().size()+1,subject,description);
+        bc.addRequest(request);
+        Text sendRequestText = new Text("Request send");
+        pane.getChildren().add(sendRequestText);
+        tfRequestDescription.clear();
+        tfRequestSubject.clear();
+        DatabaseManager databaseManager=new DatabaseManager();
+        databaseManager.addRequestToClient(snn,request);
+
+
+
+    }
+
+    private void transferMoneyFromAccount ()  {
 
         //TODO implement the OPEN NEW TRANSFER MONEY REQUEST
+            String amount =tfMoneyAmount.getText();
+            String destBankID=tfDestinationBankID.getText();
+            String destAccountNum=tfDestinationAccountNumber.getText();
+
+
+
+
+
+
 
 
     }
