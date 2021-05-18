@@ -17,13 +17,13 @@ import java.util.ArrayList;
 
 
 public class DatabaseManager {
-    private static String projectHomeDir = Paths.get(System.getProperty("user.dir")).toString();
+    private static final String projectHomeDir = Paths.get(System.getProperty("user.dir")).toString();
 
-    private static Path AccountTable = Paths.get(projectHomeDir,"src", "Database", "source", "Account.json");
-    private static Path BankClientTable = Paths.get(projectHomeDir, "src", "Database", "source", "BankClient.json");
-    private static Path EmployeeTable = Paths.get(projectHomeDir, "src", "Database", "source", "Employee.json");
-    private static Path TransactionTable = Paths.get(projectHomeDir, "src", "Database", "source", "Transaction.json");
-    private static Path RequestTable = Paths.get(projectHomeDir, "src", "Database", "source", "Request.json");
+    private static final Path AccountTable = Paths.get(projectHomeDir,"src", "Database", "source", "Account.json");
+    private static final Path BankClientTable = Paths.get(projectHomeDir, "src", "Database", "source", "BankClient.json");
+    private static final Path EmployeeTable = Paths.get(projectHomeDir, "src", "Database", "source", "Employee.json");
+    private static final Path TransactionTable = Paths.get(projectHomeDir, "src", "Database", "source", "Transaction.json");
+    private static final Path RequestTable = Paths.get(projectHomeDir, "src", "Database", "source", "Request.json");
 
 
     public DatabaseManager(){
@@ -239,12 +239,12 @@ public class DatabaseManager {
         }
     }
 
-    private Account getAccount(int accountName) {
+    public Account getAccount(int accountNumber) {
         try{
             JSONObject accounts_data = new JSONObject(this.read(AccountTable));
             JSONObject transactions_data = new JSONObject(this.read(TransactionTable));
 
-            return Account.jsonToAccount(accountName, accounts_data, transactions_data);
+            return Account.jsonToAccount(accountNumber, accounts_data, transactions_data);
         }catch (Exception e){
             return null;
         }
@@ -373,24 +373,4 @@ public class DatabaseManager {
         }
     }
 
-    public static void main(String[] args) {
-        DatabaseManager db = new DatabaseManager();
-
-//        BankClient bankClient1 = new BankClient("111222", "client1", "client1User", "123123", "client1@client.com");
-//        BankClient bankClient2 = new BankClient("111333", "client2", "client2User", "123123", "client2@client.com");
-//
-//        db.addNewClient(bankClient1);
-//        db.addNewClient(bankClient2);
-
-//        Account account = new Account("1", 12345678, "account1", "type", (float)22.3);
-//        db.addAccountToClient("111333", account);
-
-//       BankClient b =  db.getBankClient("111333");
-//       b.asJson();
-
-//        db.updateAccount(new Account("1", 12345678, "account1", "type", (float)1000));
-
-//        BankClient b = db.getBankClientByEmail("client2@client.com");
-//        System.out.println(b.getFullName());
-    }
 }

@@ -1,5 +1,6 @@
 package user_interface;
 
+import Chat.ChatSession;
 import Database.DatabaseManager;
 import Database.tables.*;
 import javafx.application.Application;
@@ -21,6 +22,9 @@ import org.apache.kafka.common.protocol.types.Field;
 
 import java.util.Calendar;
 import java.util.Date;
+import Transaction.AccountBoundary;
+import Transaction.TransactionControl;
+import Transaction.BankingTransactionBoundary;
 
 public class MenuScreen extends Application {
 
@@ -39,9 +43,11 @@ public class MenuScreen extends Application {
     private final Tab tab3 = new Tab("Open request", openRequestTabPane);
 
     //Client UI : transfer tab
-    private final Button transferOkBtn = new Button("OK");
+    private final Button transferOkBtn = new Button("SEND");
     private final GridPane transferDetailsGridPane = new GridPane();
     private final TextField tfMoneyAmount = new TextField();
+    private final TextField tfCustomerName = new TextField();
+    private final TextField tfBranchName = new TextField();
     private final TextField tfDestinationBankID = new TextField();
     private final TextField tfDestinationAccountNumber = new TextField();
     // private Text txtTransactionID = new Text();
@@ -117,13 +123,17 @@ public class MenuScreen extends Application {
         transferDetailsGridPane.add(new Label("Transfer details: "), 0, 0); // column=1 row=0
         //   transferDetailsGridPane.add(new Label("Transaction type: "), 0, 1);    //transacction lbl
         //   transferDetailsGridPane.add(new Label("Transaction type: "), 1, 1);     //transacction radio button
-        transferDetailsGridPane.add(new Label("Transaction amount: "), 0, 1);     //transacction lbl
-        transferDetailsGridPane.add(tfMoneyAmount, 1, 1);     //transacction amount tf
-        transferDetailsGridPane.add(new Label("Destination bank ID: "), 0, 2);
-        transferDetailsGridPane.add(tfDestinationBankID, 1, 2);
-        transferDetailsGridPane.add(new Label("Destination account number: "), 0, 3);
-        transferDetailsGridPane.add(tfDestinationAccountNumber, 1, 3);
-        transferDetailsGridPane.add(transferOkBtn, 0, 4);
+        transferDetailsGridPane.add(new Label("Customer Name: "), 0, 1);
+        transferDetailsGridPane.add(tfCustomerName, 1, 1);
+        transferDetailsGridPane.add(new Label("Branch Name: "), 0, 2);
+        transferDetailsGridPane.add(tfBranchName, 1, 2);
+        transferDetailsGridPane.add(new Label("Transaction amount: "), 0, 3);     //transacction lbl
+        transferDetailsGridPane.add(tfMoneyAmount, 1, 3);     //transacction amount tf
+        transferDetailsGridPane.add(new Label("Destination bank ID: "), 0, 4);
+        transferDetailsGridPane.add(tfDestinationBankID, 1, 4);
+        transferDetailsGridPane.add(new Label("Destination account number: "), 0, 5);
+        transferDetailsGridPane.add(tfDestinationAccountNumber, 1, 5);
+        transferDetailsGridPane.add(transferOkBtn, 0, 6);
         Text helloTxt = new Text("Hello, ");
         transferTabPane.getChildren().addAll(helloTxt, transferDetailsGridPane);
 
@@ -292,17 +302,43 @@ public class MenuScreen extends Application {
 
     private void transferMoneyFromAccount ()  {
 
-        //TODO implement the OPEN NEW TRANSFER MONEY REQUEST
-            String amount =tfMoneyAmount.getText();
+            double amount = Double.parseDouble(tfMoneyAmount.getText());
             String destBankID=tfDestinationBankID.getText();
             String destAccountNum=tfDestinationAccountNumber.getText();
+            String branchName = tfBranchName.getText();
+            String customerName = tfCustomerName.getText();
+            AccountBoundary destAccount = new AccountBoundary(destAccountNum, destBankID, branchName, customerName);
+            Account account = bc.getAccounts().get(0);
+            AccountBoundary srcAccount = new AccountBoundary(account.getAccountNumber()+"",
+                    account.getBankID(), "online", bc.getFullName());
+            if(account.getBalance() - amount < 0)
+            {
+                //TODO: show error msg no enough money
+                return;
+            }
+            BankingTransactionBoundary bankingTransactionBoundary = new BankingTransactionBoundary("",
+                    Calendar.getInstance().getTime(), amount, srcAccount, destAccount);
+            try (TransactionControl transactionControl = new TransactionControl(destBankID)){
+                transactionControl.sendTransaction(bankingTransactionBoundary);
+                if(transactionControl.isSuccess()) // transaction success
+                {
+                    Account destinationAccount = new Account(destAccount.getBankId(),
+                            Integer.parseInt(destAccountNum), customerName, "", 0);
+                    account.addTransaction(new Transaction(account.getTransactions().size()+1,
+                            "",(float) amount, destinationAccount));
+                    account.setBalance(account.getBalance() - (float)amount);
+                    DatabaseManager db = new DatabaseManager();
+                    if(db.updateAccount(account)){
+                        //TODO: show success msg
+                    }else{
+                        // TODO: show error msg failed to update account
+                    }
 
-
-
-
-
-
-
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+                //TODO: show error msg e.toString()
+            }
 
     }
 

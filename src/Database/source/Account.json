@@ -1,1 +1,2 @@
-{"12345678":{"Transactions":[],"bankID":"afeka02","balance":1000,"accountName":"account1","accountType":"type","accountNumber":12345678}}
+{"12345678":{"Transactions":[],"bankID":"afeka02","balance":1000,"accountName":"account1","accountType":"type","accountNumber":12345678},
+"11122334":{"Transactions":[],"bankID":"afeka02","balance":15000,"accountName":"account2","accountType":"type","accountNumber":11122334}}
