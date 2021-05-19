@@ -8,9 +8,9 @@ public class ChatApplication {
 			System.err.println("type your email:");
 			String email = scanner.nextLine().trim();
 			
-			try (ChatSession u1 = new ChatSession(email, args)){
-				System.err.println("type a message:");
-				String message = scanner.nextLine().trim();
+			try (ChatSession u1 = new ChatSession(email)){
+				//System.err.println("type a message:");
+				String message = "heelo";//scanner.nextLine().trim();
 				u1.sendMessage(message);
 				System.err.println("type any key to quit");
 				scanner.nextLine();

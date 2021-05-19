@@ -8,11 +8,12 @@ import p2p.banking.BankingInterchange;
 public class ChatSession implements AutoCloseable{
 	private String email;
 	private SimpleDateFormat formatter;
-	
+	public boolean complate;
 	private BankingInterchange<ChatMessage> interchange;
 
 	public ChatSession(String email, String... config) {
 		super();
+		complate = false;
 		this.email = email;
 		this.formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		this.interchange = new BankingInterchange<ChatMessage>(this.email, config, this::handleMessage, new ChatMessage());
@@ -38,5 +39,7 @@ public class ChatSession implements AutoCloseable{
 		}else {
 			System.err.println("" + message.getSender() + ": " + message.getContnet() + " (" + this.formatter.format(message.getTimestamp()) + ")");
 		}
+
+		complate = true;
 	}
 }

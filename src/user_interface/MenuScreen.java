@@ -233,19 +233,6 @@ public class MenuScreen extends Application {
             }
         });
 
-
-        transferOkBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                //get properties from UI
-                float amount;
-                Date create_date;
-                Account destinationAccount;
-                int transactionID;
-
-                transferMoneyFromAccount();
-            }
-        });
         sendRequestOkBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -266,7 +253,12 @@ public class MenuScreen extends Application {
         });
         transferOkBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {transferMoneyFromAccount();}
+            public void handle(ActionEvent event) {
+
+
+                transferMoneyFromAccount();
+
+            }
 
 
         });
@@ -316,16 +308,18 @@ public class MenuScreen extends Application {
                 //TODO: show error msg no enough money
                 return;
             }
-            BankingTransactionBoundary bankingTransactionBoundary = new BankingTransactionBoundary("",
-                    Calendar.getInstance().getTime(), amount, srcAccount, destAccount);
+            BankingTransactionBoundary bankingTransactionBoundary = new BankingTransactionBoundary(srcAccount,
+                    destAccount, "", Calendar.getInstance().getTime(), amount);
             try (TransactionControl transactionControl = new TransactionControl(destBankID)){
                 transactionControl.sendTransaction(bankingTransactionBoundary);
+                while (!transactionControl.isComplete())
+                    Thread.sleep(100);
                 if(transactionControl.isSuccess()) // transaction success
                 {
                     Account destinationAccount = new Account(destAccount.getBankId(),
                             Integer.parseInt(destAccountNum), customerName, "", 0);
-                    account.addTransaction(new Transaction(account.getTransactions().size()+1,
-                            "",(float) amount, destinationAccount));
+//                    account.addTransaction(new Transaction(account.getTransactions().size()+1,
+//                            "",(float) amount, destinationAccount));
                     account.setBalance(account.getBalance() - (float)amount);
                     DatabaseManager db = new DatabaseManager();
                     if(db.updateAccount(account)){
