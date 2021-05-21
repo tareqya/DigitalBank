@@ -328,6 +328,7 @@ public class MenuScreen extends Application {
                     DatabaseManager db = new DatabaseManager();
                     if(db.updateAccount(account)){
                         transferStatusMsgTxt.setText("Transaction success!");
+                        balance.setText("Balance: "+String.format("%.2f", bc.getAccounts().get(0).getBalance()));
                     }else{
                         transferStatusMsgTxt.setText("Failed to update src account!");
                     }
