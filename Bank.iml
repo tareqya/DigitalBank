@@ -46,7 +46,7 @@
     <content url="jar://C:/x/p2p-bank-components-3.0.0/spring-retry-1.3.1.jar!/" />
     <content url="jar://C:/x/p2p-bank-components-3.0.0/spring-tx-5.3.5.jar!/" />
     <content url="jar://C:/x/p2p-bank-components-3.0.0/typetools-0.6.2.jar!/" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="14" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="javafx-fxml">

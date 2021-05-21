@@ -2724,3 +2724,337 @@
 2021-05-03 20:55:53.289 DEBUG 14856 --- [KafkaConsumerDestination{consumerDestinationName='bankingQ', partitions=1, dlqName='null'}.container-0-C-1] p2p.core.MessageHandler                  : received: {"sender":"tareq","contnet":"hi from tareq","timestamp":1620064553134}
 2021-05-03 20:55:53.292 DEBUG 15772 --- [KafkaConsumerDestination{consumerDestinationName='bankingQ', partitions=1, dlqName='null'}.container-0-C-1] p2p.core.MessageHandler                  : received: {"sender":"tareq","contnet":"hi from tareq","timestamp":1620064553134}
 2021-05-03 20:55:53.322 DEBUG 7940 --- [KafkaConsumerDestination{consumerDestinationName='bankingQ', partitions=1, dlqName='null'}.container-0-C-1] p2p.core.MessageHandler                  : received: {"sender":"tareq","contnet":"hi from tareq","timestamp":1620064553134}
+2021-05-21 14:28:19.605  INFO 17112 --- [JavaFX Application Thread] o.s.boot.SpringApplication               : Starting application using Java 14.0.1 on DESKTOP-0D7HRTH with PID 17112 (started by edens in C:\Users\edens\IdeaProjects\DigitalBank)
+2021-05-21 14:28:19.607  INFO 17112 --- [JavaFX Application Thread] o.s.boot.SpringApplication               : No active profile set, falling back to default profiles: default
+2021-05-21 14:28:20.342  INFO 17112 --- [JavaFX Application Thread] o.s.c.a.ConfigurationClassEnhancer       : @Bean method FunctionConfiguration.po is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
+2021-05-21 14:28:20.365  INFO 17112 --- [JavaFX Application Thread] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2021-05-21 14:28:20.371  INFO 17112 --- [JavaFX Application Thread] faultConfiguringBeanFactoryPostProcessor : No bean named 'taskScheduler' has been explicitly defined. Therefore, a default ThreadPoolTaskScheduler will be created.
+2021-05-21 14:28:20.376  INFO 17112 --- [JavaFX Application Thread] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2021-05-21 14:28:20.445  INFO 17112 --- [JavaFX Application Thread] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-05-21 14:28:20.465  INFO 17112 --- [JavaFX Application Thread] trationDelegate$BeanPostProcessorChecker : Bean 'integrationChannelResolver' of type [org.springframework.integration.support.channel.BeanFactoryChannelResolver] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-05-21 14:28:20.467  INFO 17112 --- [JavaFX Application Thread] trationDelegate$BeanPostProcessorChecker : Bean 'integrationDisposableAutoCreatedBeans' of type [org.springframework.integration.config.annotation.Disposables] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-05-21 14:28:20.945  INFO 17112 --- [JavaFX Application Thread] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2021-05-21 14:28:21.228  INFO 17112 --- [JavaFX Application Thread] o.s.c.s.m.DirectWithAttributesChannel    : Channel 'bankinginterchange.handleMessage-in-0' has 1 subscriber(s).
+2021-05-21 14:28:21.337  INFO 17112 --- [JavaFX Application Thread] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2021-05-21 14:28:21.337  INFO 17112 --- [JavaFX Application Thread] o.s.i.channel.PublishSubscribeChannel    : Channel 'bankinginterchange.errorChannel' has 1 subscriber(s).
+2021-05-21 14:28:21.337  INFO 17112 --- [JavaFX Application Thread] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2021-05-21 14:28:21.338  INFO 17112 --- [JavaFX Application Thread] o.s.c.s.binder.DefaultBinderFactory      : Creating binder: kafka
+2021-05-21 14:28:21.510  INFO 17112 --- [JavaFX Application Thread] o.s.c.s.binder.DefaultBinderFactory      : Caching the binder: kafka
+2021-05-21 14:28:21.511  INFO 17112 --- [JavaFX Application Thread] o.s.c.s.binder.DefaultBinderFactory      : Retrieving cached binder: kafka
+2021-05-21 14:28:21.601  INFO 17112 --- [JavaFX Application Thread] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	bootstrap.servers = [127.0.0.1:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2021-05-21 14:28:21.742  INFO 17112 --- [JavaFX Application Thread] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-21 14:28:21.744  INFO 17112 --- [JavaFX Application Thread] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-21 14:28:21.745  INFO 17112 --- [JavaFX Application Thread] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621596501740
+2021-05-21 14:28:23.812  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:25.946  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:28.083  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:30.402  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:32.934  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:35.879  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:39.028  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:41.987  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:45.149  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:48.080  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:51.127  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:51.757  INFO 17112 --- [kafka-admin-client-thread | adminclient-1] o.a.k.c.a.i.AdminMetadataManager         : [AdminClient clientId=adminclient-1] Metadata update failed
+
+org.apache.kafka.common.errors.TimeoutException: Call(callName=fetchMetadata, deadlineMs=1621596531748, tries=1, nextAllowedTryMs=1621596531849) timed out at 1621596531749 after 1 attempt(s)
+Caused by: org.apache.kafka.common.errors.TimeoutException: Timed out waiting for a node assignment.
+
+2021-05-21 14:28:54.210  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:28:57.460  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:00.707  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:03.847  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:06.804  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:09.858  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:12.795  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:16.040  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:19.287  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:21.750  INFO 17112 --- [kafka-admin-client-thread | adminclient-1] o.a.k.c.a.i.AdminMetadataManager         : [AdminClient clientId=adminclient-1] Metadata update failed
+
+org.apache.kafka.common.errors.TimeoutException: Call(callName=fetchMetadata, deadlineMs=1621596561749, tries=1, nextAllowedTryMs=1621596561850) timed out at 1621596561750 after 1 attempt(s)
+Caused by: org.apache.kafka.common.errors.TimeoutException: Timed out waiting to send the call.
+
+2021-05-21 14:29:22.348  WARN 17112 --- [kafka-admin-client-thread | adminclient-1] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-1] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:22.351  INFO 17112 --- [kafka-admin-client-thread | adminclient-1] o.a.k.c.a.i.AdminMetadataManager         : [AdminClient clientId=adminclient-1] Metadata update failed
+
+org.apache.kafka.common.errors.TimeoutException: Call(callName=fetchMetadata, deadlineMs=1621596591750, tries=1, nextAllowedTryMs=-9223372036854775709) timed out at 9223372036854775807 after 1 attempt(s)
+Caused by: org.apache.kafka.common.errors.TimeoutException: The AdminClient thread has exited.
+
+2021-05-21 14:29:22.367 ERROR 17112 --- [JavaFX Application Thread] o.s.cloud.stream.binding.BindingService  : Failed to create consumer binding; retrying in 30 seconds
+
+org.springframework.cloud.stream.provisioning.ProvisioningException: Provisioning exception encountered for bankingQ; nested exception is java.util.concurrent.TimeoutException
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.createTopic(KafkaTopicProvisioner.java:346) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.doProvisionConsumerDestination(KafkaTopicProvisioner.java:231) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.provisionConsumerDestination(KafkaTopicProvisioner.java:197) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.provisionConsumerDestination(KafkaTopicProvisioner.java:86) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:403) ~[spring-cloud-stream-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binder.AbstractMessageChannelBinder.doBindConsumer(AbstractMessageChannelBinder.java:91) ~[spring-cloud-stream-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binder.AbstractBinder.bindConsumer(AbstractBinder.java:143) ~[spring-cloud-stream-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binding.BindingService.doBindConsumer(BindingService.java:176) ~[spring-cloud-stream-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binding.BindingService.bindConsumer(BindingService.java:133) ~[spring-cloud-stream-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binding.AbstractBindableProxyFactory.createAndBindInputs(AbstractBindableProxyFactory.java:112) ~[spring-cloud-stream-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binding.InputBindingLifecycle.doStartWithBindable(InputBindingLifecycle.java:58) ~[spring-cloud-stream-3.1.2.jar:3.1.2]
+	at java.base/java.util.LinkedHashMap$LinkedValues.forEach(LinkedHashMap.java:647) ~[na:na]
+	at org.springframework.cloud.stream.binding.AbstractBindingLifecycle.start(AbstractBindingLifecycle.java:57) ~[spring-cloud-stream-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binding.InputBindingLifecycle.start(InputBindingLifecycle.java:34) ~[spring-cloud-stream-3.1.2.jar:3.1.2]
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:178) ~[spring-context-5.3.5.jar:5.3.5]
+	at org.springframework.context.support.DefaultLifecycleProcessor.access$200(DefaultLifecycleProcessor.java:54) ~[spring-context-5.3.5.jar:5.3.5]
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:356) ~[spring-context-5.3.5.jar:5.3.5]
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[na:na]
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:155) ~[spring-context-5.3.5.jar:5.3.5]
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:123) ~[spring-context-5.3.5.jar:5.3.5]
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:935) ~[spring-context-5.3.5.jar:5.3.5]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:586) ~[spring-context-5.3.5.jar:5.3.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:769) ~[spring-boot-2.4.4.jar:2.4.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:761) ~[spring-boot-2.4.4.jar:2.4.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:426) ~[spring-boot-2.4.4.jar:2.4.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:326) ~[spring-boot-2.4.4.jar:2.4.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1313) ~[spring-boot-2.4.4.jar:2.4.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1302) ~[spring-boot-2.4.4.jar:2.4.4]
+	at p2p.core.P2pManagerImplementation.startP2P(P2pManagerImplementation.java:47) ~[p2p-bank-3.0.0-v1.8.jar:na]
+	at p2p.core.P2pManager.getInstance(P2pManager.java:7) ~[p2p-bank-3.0.0-v1.8.jar:na]
+	at p2p.banking.BankingInterchange.<init>(BankingInterchange.java:18) ~[p2p-bank-3.0.0-v1.8.jar:na]
+	at Transaction.TransactionControl.<init>(TransactionControl.java:15) ~[Bank/:na]
+	at user_interface.MenuScreen.transferMoneyFromAccount(MenuScreen.java:336) ~[Bank/:na]
+	at user_interface.MenuScreen.access$1000(MenuScreen.java:30) ~[Bank/:na]
+	at user_interface.MenuScreen$4.handle(MenuScreen.java:276) ~[Bank/:na]
+	at user_interface.MenuScreen$4.handle(MenuScreen.java:271) ~[Bank/:na]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:238) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49) ~[javafx.base.jar:na]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx.base.jar:na]
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8879) ~[javafx.graphics.jar:na]
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:200) ~[javafx.controls.jar:na]
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:206) ~[javafx.controls.jar:na]
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274) ~[javafx.controls.jar:na]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:218) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:238) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74) ~[javafx.base.jar:na]
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54) ~[javafx.base.jar:na]
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198) ~[javafx.base.jar:na]
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3851) ~[javafx.graphics.jar:na]
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.access$1200(Scene.java:3579) ~[javafx.graphics.jar:na]
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1849) ~[javafx.graphics.jar:na]
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2588) ~[javafx.graphics.jar:na]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:397) ~[javafx.graphics.jar:na]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:295) ~[javafx.graphics.jar:na]
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:391) ~[na:na]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:434) ~[javafx.graphics.jar:na]
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:390) ~[javafx.graphics.jar:na]
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:433) ~[javafx.graphics.jar:na]
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:556) ~[javafx.graphics.jar:na]
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:942) ~[javafx.graphics.jar:na]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method) ~[javafx.graphics.jar:na]
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:174) ~[javafx.graphics.jar:na]
+	at java.base/java.lang.Thread.run(Thread.java:832) ~[na:na]
+Caused by: java.util.concurrent.TimeoutException: null
+	at org.apache.kafka.common.internals.KafkaFutureImpl$SingleWaiter.await(KafkaFutureImpl.java:108) ~[kafka-clients-2.6.0.jar:na]
+	at org.apache.kafka.common.internals.KafkaFutureImpl.get(KafkaFutureImpl.java:272) ~[kafka-clients-2.6.0.jar:na]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.createTopicAndPartitions(KafkaTopicProvisioner.java:382) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.createTopicIfNecessary(KafkaTopicProvisioner.java:356) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar:3.1.2]
+	at org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner.createTopic(KafkaTopicProvisioner.java:333) ~[spring-cloud-stream-binder-kafka-core-3.1.2.jar:3.1.2]
+	... 85 common frames omitted
+
+2021-05-21 14:29:22.391  INFO 17112 --- [JavaFX Application Thread] o.s.boot.SpringApplication               : Started application in 63.519 seconds (JVM running for 213.132)
+2021-05-21 14:29:22.394 DEBUG 17112 --- [JavaFX Application Thread] p2p.banking.BankingInterchange           : initialized bank partner: afeka02
+2021-05-21 14:29:22.468 DEBUG 17112 --- [JavaFX Application Thread] p2p.core.MessageHandler                  : sending: {"source":{"accountNumber":"12345678","bankId":"afeka02","branch":"online","customerName":"client2"},"destination":{"accountNumber":"11122334","bankId":"afeka02","branch":"online","customerName":"client2"},"comment":"","timestamp":1621596498640,"amount":555.0}
+2021-05-21 14:29:22.472  INFO 17112 --- [JavaFX Application Thread] o.s.c.s.binder.DefaultBinderFactory      : Retrieving cached binder: kafka
+2021-05-21 14:29:22.508  INFO 17112 --- [JavaFX Application Thread] o.s.c.s.b.k.p.KafkaTopicProvisioner      : Using kafka topic for outbound: bankingQ
+2021-05-21 14:29:22.509  INFO 17112 --- [JavaFX Application Thread] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	bootstrap.servers = [127.0.0.1:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2021-05-21 14:29:22.520  INFO 17112 --- [JavaFX Application Thread] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-21 14:29:22.521  INFO 17112 --- [JavaFX Application Thread] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-21 14:29:22.521  INFO 17112 --- [JavaFX Application Thread] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621596562520
+2021-05-21 14:29:24.571  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:26.721  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:28.865  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:31.216  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:33.655  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:36.576  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:39.601  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:42.855  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:45.893  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:48.943  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:52.186  WARN 17112 --- [kafka-admin-client-thread | adminclient-2] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-2] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.
+2021-05-21 14:29:52.378  INFO 17112 --- [task-scheduler-1] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	bootstrap.servers = [127.0.0.1:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2021-05-21 14:29:52.388  INFO 17112 --- [task-scheduler-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.6.0
+2021-05-21 14:29:52.389  INFO 17112 --- [task-scheduler-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: 62abe01bee039651
+2021-05-21 14:29:52.390  INFO 17112 --- [task-scheduler-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1621596592388
+2021-05-21 14:29:52.524  INFO 17112 --- [kafka-admin-client-thread | adminclient-2] o.a.k.c.a.i.AdminMetadataManager         : [AdminClient clientId=adminclient-2] Metadata update failed
+
+org.apache.kafka.common.errors.TimeoutException: Call(callName=fetchMetadata, deadlineMs=1621596592523, tries=1, nextAllowedTryMs=1621596592624) timed out at 1621596592524 after 1 attempt(s)
+Caused by: org.apache.kafka.common.errors.TimeoutException: Timed out waiting for a node assignment.
+
+2021-05-21 14:29:54.418  WARN 17112 --- [kafka-admin-client-thread | adminclient-3] org.apache.kafka.clients.NetworkClient   : [AdminClient clientId=adminclient-3] Connection to node -1 (/127.0.0.1:9092) could not be established. Broker may not be available.

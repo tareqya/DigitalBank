@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -36,6 +37,9 @@ public class MenuScreen extends Application {
     private final TextField tfUserName = new TextField();
     private final PasswordField tfPassword = new PasswordField();
     private final RadioButton clientRbtn = new RadioButton("Client");
+    Text errorMsgTxt = new Text("fields can not be empty");
+    Text errorMsgNotAssignTxt = new Text("Unknown user, please try again or sign up");
+
 
     private final VBox viewAccountTabPane = new VBox(20);
     private final VBox openRequestTabPane = new VBox(20);
@@ -50,6 +54,7 @@ public class MenuScreen extends Application {
     private final TextField tfBranchName = new TextField();
     private final TextField tfDestinationBankID = new TextField();
     private final TextField tfDestinationAccountNumber = new TextField();
+    private Text transferStatusMsgTxt = new Text("transfer succeed");
     // private Text txtTransactionID = new Text();
 
     //Client UI : view account status tab
@@ -80,20 +85,17 @@ public class MenuScreen extends Application {
     private Label balance = new Label("Balance: ");
     private Label clientemail = new Label("Email: ");
     private StringBuilder accountClientsnumbers = new StringBuilder();
-    private final String buttonsStyle = "-fx-background-color: \n" +
-            "        #000000,\n" +
-            "        linear-gradient(#7ebcea, #2f4b8f),\n" +
-            "        linear-gradient(#426ab7, #263e75),\n" +
-            "        linear-gradient(#395cab, #223768);\n" +
-            "    -fx-background-insets: 0,1,2,3;\n" +
-            "    -fx-background-radius: 3,2,2,2;\n" +
-            "    -fx-padding: 12 30 12 30;\n" +
-            "    -fx-text-fill: white;\n" +
-            "    -fx-font-size: 12px;";
 
     public MenuScreen(Stage primaryStage) {
 
         //set login pane (GridPane)
+        errorMsgTxt.setVisible(false);
+        errorMsgTxt.setFill(Color.RED);
+        errorMsgTxt.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
+        errorMsgNotAssignTxt.setVisible(false);
+        errorMsgNotAssignTxt.setFill(Color.RED);
+        errorMsgNotAssignTxt.setFont(Font.font("Verdana", FontWeight.NORMAL, 12));
+
         //Login scene
         GridPane loginGridPane = new GridPane();
         loginGridPane.add(new Label("Login details: "), 1, 0); // column=1 row=0
@@ -102,7 +104,6 @@ public class MenuScreen extends Application {
         loginGridPane.add(new Label("Password: "), 0, 2);
         loginGridPane.add(tfPassword, 1, 2);
         loginGridPane.add(clientRbtn, 0, 3);
-
         loginGridPane.add(employeeRbtn, 1, 3);
 
         //set radio buttons (employee \ client) for sign in
@@ -135,7 +136,8 @@ public class MenuScreen extends Application {
         transferDetailsGridPane.add(tfDestinationAccountNumber, 1, 5);
         transferDetailsGridPane.add(transferOkBtn, 0, 6);
         Text helloTxt = new Text("Hello, ");
-        transferTabPane.getChildren().addAll(helloTxt, transferDetailsGridPane);
+        transferTabPane.getChildren().addAll(helloTxt, transferDetailsGridPane, transferStatusMsgTxt);
+        transferStatusMsgTxt.setVisible(false);
 
         //set client UI - view account tab
         accountDetailsGridPane.add(bankID, 0, 0);
@@ -144,7 +146,6 @@ public class MenuScreen extends Application {
         accountDetailsGridPane.add(client_ssn, 0, 3);
         accountDetailsGridPane.add(balance, 0, 4);
         accountDetailsGridPane.add(clientemail, 0, 5);
-
 
         viewAccountTabPane.getChildren().addAll(helloTxt, accountDetailsGridPane);
         viewAccountTabPane.setPadding(new Insets(50));
@@ -179,7 +180,6 @@ public class MenuScreen extends Application {
         requestDetailsGridPane.setHgap(35);
         requestDetailsGridPane.setVgap(30);
         requestDetailsGridPane.setPadding(new Insets(15, 15, 15, 15));
-        //   transferDetailsGridPane.setPadding(new Insets(10, 15, 15, 15));
 
         //design buttons
         Button loginBtn = new Button("Log in");
@@ -194,7 +194,7 @@ public class MenuScreen extends Application {
         //design main pane
         Label titleLbl = new Label("- WELCOME TO THE DIGITAL BANK -");
         VBox btnPane = new VBox(10);
-        pane.getChildren().addAll(titleLbl, loginGridPane, loginBtn, signInTxt, btnPane);
+        pane.getChildren().addAll(titleLbl, loginGridPane, loginBtn,errorMsgTxt, errorMsgNotAssignTxt, signInTxt, btnPane);
         pane.setPadding(new Insets(20));
         pane.setAlignment(Pos.CENTER);
         titleLbl.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
@@ -205,9 +205,8 @@ public class MenuScreen extends Application {
         primaryStage.centerOnScreen();
         primaryStage.setResizable(false);
         primaryStage.alwaysOnTopProperty();
-        primaryStage.setTitle("DisplayMovingMessage");
+        primaryStage.setTitle("Digital Bank - afeka02");
         primaryStage.show();
-
 
         loginBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -215,20 +214,22 @@ public class MenuScreen extends Application {
                 Login();
                 if (isAssign) {
                     if (isClient) {
+                        pane.getChildren().clear();
                         showClientDetails(0);
                         updateAccountStatus();
                         clientMenuScreen();
-                    } else {
-
+                    } else if (isEmployee) {
+                        pane.getChildren().clear();
                         employeeMenuScreen();
+                    }else{
+                      System.out.println("dsdsds");
                     }
                 }
             }
 
             private void updateAccountStatus() {
 
-                //TODO
-                //implement the "view account" tab
+                //TODO implement the "view account" tab
 
             }
         });
@@ -248,7 +249,7 @@ public class MenuScreen extends Application {
             }
 
             private void updateRequestStatus(TextField tfRequestNumber) {
-                //TODO
+                //TODO updateRequestStatus
             }
         });
         transferOkBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -273,6 +274,12 @@ public class MenuScreen extends Application {
                     }
                 }
         );
+
+
+    }
+
+    public void setErrorMsgTxt(Text errorMsgTxt) {
+        this.errorMsgTxt = errorMsgTxt;
     }
 
     private void openClientRequest( ) {
@@ -324,8 +331,10 @@ public class MenuScreen extends Application {
                     DatabaseManager db = new DatabaseManager();
                     if(db.updateAccount(account)){
                         //TODO: show success msg
+                        transferStatusMsgTxt.setVisible(true);
                     }else{
                         // TODO: show error msg failed to update account
+                        transferStatusMsgTxt.setVisible(true);
                     }
 
                 }
@@ -336,11 +345,21 @@ public class MenuScreen extends Application {
 
     }
 
+
     private void Login() {
-        pane.getChildren().clear();
         String email = tfUserName.getText();
         String password = tfPassword.getText();
         DatabaseManager db = new DatabaseManager();
+
+        if (email.equals("") && password.equals("")) {
+            System.out.println("fields are empty");
+            errorMsgTxt.setVisible(true);
+
+        }else{
+            errorMsgTxt.setVisible(false);
+        }
+
+
 
         if (clientRbtn.isSelected()) {
             bc = db.getBankClientByEmail(email);
@@ -350,6 +369,7 @@ public class MenuScreen extends Application {
 
             } else
                 isAssign = false;
+                errorMsgNotAssignTxt.setVisible(true);
 
         } else {
             if (employeeRbtn.isSelected()) {
@@ -357,9 +377,9 @@ public class MenuScreen extends Application {
                 if (em != null && em.getPassword().equals(password)) {
                     isAssign = true;
                     isEmployee = true;
-
                 } else
                     isAssign = false;
+                    errorMsgNotAssignTxt.setVisible(true);
             }
 
         }
@@ -386,6 +406,7 @@ public class MenuScreen extends Application {
         clientemail.setText(clientemail.getText() +" "+bc.getEmail());
 
     }
+
 
 
     @Override
