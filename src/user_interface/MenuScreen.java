@@ -300,7 +300,7 @@ public class MenuScreen extends Application {
     }
 
     private void transferMoneyFromAccount ()  {
-
+            transferStatusMsgTxt.setVisible(false);
             double amount = Double.parseDouble(tfMoneyAmount.getText());
             String destBankID=tfDestinationBankID.getText();
             String destAccountNum=tfDestinationAccountNumber.getText();
@@ -312,7 +312,8 @@ public class MenuScreen extends Application {
                     account.getBankID(), "online", bc.getFullName());
             if(account.getBalance() - amount < 0)
             {
-                //TODO: show error msg no enough money
+                transferStatusMsgTxt.setText("Not enough money in your account");
+                transferStatusMsgTxt.setVisible(true);
                 return;
             }
             BankingTransactionBoundary bankingTransactionBoundary = new BankingTransactionBoundary(srcAccount,
@@ -323,24 +324,19 @@ public class MenuScreen extends Application {
                     Thread.sleep(100);
                 if(transactionControl.isSuccess()) // transaction success
                 {
-                    Account destinationAccount = new Account(destAccount.getBankId(),
-                            Integer.parseInt(destAccountNum), customerName, "", 0);
-//                    account.addTransaction(new Transaction(account.getTransactions().size()+1,
-//                            "",(float) amount, destinationAccount));
                     account.setBalance(account.getBalance() - (float)amount);
                     DatabaseManager db = new DatabaseManager();
                     if(db.updateAccount(account)){
-                        //TODO: show success msg
-                        transferStatusMsgTxt.setVisible(true);
+                        transferStatusMsgTxt.setText("Transaction success!");
                     }else{
-                        // TODO: show error msg failed to update account
-                        transferStatusMsgTxt.setVisible(true);
+                        transferStatusMsgTxt.setText("Failed to update src account!");
                     }
-
+                    transferStatusMsgTxt.setVisible(true);
                 }
             }catch (Exception e) {
                 e.printStackTrace();
-                //TODO: show error msg e.toString()
+                transferStatusMsgTxt.setText(e.getMessage());
+                transferStatusMsgTxt.setVisible(true);
             }
 
     }

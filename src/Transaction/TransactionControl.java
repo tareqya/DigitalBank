@@ -17,14 +17,17 @@ public class TransactionControl implements AutoCloseable{
     }
 
     private void handleTransaction(BankingTransactionBoundary bankingTransactionBoundary) {
-        if(bankingTransactionBoundary.getDestination().getBankId().equals(BANK_ID)){
-            DatabaseManager db = new DatabaseManager();
-            Account account = db.getAccount(Integer.parseInt(bankingTransactionBoundary.getDestination().getAccountNumber()));
-            float amount = (float) bankingTransactionBoundary.getAmount();
-            account.setBalance(account.getBalance() + amount);
-            this.success = db.updateAccount(account);
+        try {
+            if (bankingTransactionBoundary.getDestination().getBankId().equals(BANK_ID)) {
+                DatabaseManager db = new DatabaseManager();
+                Account account = db.getAccount(Integer.parseInt(bankingTransactionBoundary.getDestination().getAccountNumber()));
+                float amount = (float) bankingTransactionBoundary.getAmount();
+                account.setBalance(account.getBalance() + amount);
+                this.success = db.updateAccount(account);
+            }
+        }catch (Exception e){
+            this.success = false;
         }
-
         complete = true;
     }
 
